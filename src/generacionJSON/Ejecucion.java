@@ -2,35 +2,31 @@ package generacionJSON;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
+import java.lang.reflect.Type;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import entidad.Alumno;
+import model.AlumnoModel;
 
 public class Ejecucion {
 
 		public static void main(String[] args) {
 		
-			Alumno obj1 = new Alumno(15, "Luis", "Perez");
-			Alumno obj2 = new Alumno(12, "Ana", "Quispe");
-			Alumno obj3 = new Alumno(13, "Luisa", "Arcos");
-			Alumno obj4 = new Alumno(14, "Alberto", "Jacinto");
-			
-			ArrayList<Alumno> data = new ArrayList<Alumno>();
-			data.add(obj1);
-			data.add(obj2);
-			data.add(obj3);
-			data.add(obj4);
-			
-			Aula aula = new Aula(141, "C102", data);
+			AlumnoModel model = new AlumnoModel();
+			List<Alumno> lstData = model.listaAlumno();
+
 			//--------------------------------------------
 			//De objeto Java----->Archivo JSON
 			//---------------------------------------------
 			FileWriter file= null;
 			try {
-				file = new FileWriter("D:/_RECURSOS/aula.json");
+				file = new FileWriter("D:/_RECURSOS/alumno.json");
 				Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			    gson.toJson(aula, file);
+			    gson.toJson(lstData, file);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally{
@@ -43,11 +39,12 @@ public class Ejecucion {
 			//---------------------------------------------
 			FileReader reader= null;
 			try {
-				reader = new FileReader("D:/_RECURSOS/aula.json");
+				reader = new FileReader("D:/_RECURSOS/alumno.json");
 				Gson gson = new Gson();
-			    Aula objAula =  gson.fromJson(reader, Aula.class);
-			    System.out.println("ID Aula \t:" + objAula.getIdAula());
-			    System.out.println("Nombre Aula \t:" + objAula.getNombre());
+				Type listType = new TypeToken<List<Alumno>>() {}.getType();
+				List<Alumno> lstSalida =  gson.fromJson(reader, listType);
+			    System.out.println(lstSalida);
+		
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally{

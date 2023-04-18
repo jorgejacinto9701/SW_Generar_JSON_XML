@@ -17,7 +17,13 @@
   </build>
   
    <dependencies>
-
+	
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.28</version>
+	</dependency>
+	
 	<dependency>
 	    <groupId>com.google.code.gson</groupId>
 	    <artifactId>gson</artifactId>
@@ -29,7 +35,7 @@
 		  <artifactId>jakarta.xml.bind-api</artifactId>
 		  <version>4.0.0</version>
 		</dependency>
-		<dependency>
+	<dependency>
 		  <groupId>com.sun.xml.bind</groupId>
 		  <artifactId>jaxb-impl</artifactId>
 		  <version>4.0.0</version>
